@@ -1,0 +1,255 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{comment}
+
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+\usepackage{geometry} % Простой способ задавать поля
+\geometry{top=25mm}
+\geometry{bottom=35mm}
+\geometry{left=15mm}
+\geometry{right=15mm}
+
+\usepackage{chngcntr}
+\usepackage{hyperref}
+
+\usepackage{setspace} % Интерлиньяж
+%\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+\usepackage{lastpage} % Узнать, сколько всего страниц в документе.
+\usepackage{soulutf8} % Модификаторы начертания
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\al}{\alpha}
+\newcommand{\p}{\partial}
+\newcommand{\D}{\Delta}
+\newcommand{\fr}{\frac}
+\newcommand{\dfr}{\dfrac}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\ol}{\overline}
+\newcommand{\bb}{\mathbb}
+\newcommand{\om}{\Omega}
+\newcommand{\Rw}{\Rightarrow}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\vp}{\varphi}
+\newcommand{\mc}{\mathcal}
+\newcommand{\sg}{\sigma}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\pagestyle{plain} % нумерация вкл.
+
+\rhead{\today}
+\lhead{Соколов Игорь, группа 573}
+
+%%% Заголовок
+\author{Соколов Игорь, группа 573}
+\title{ДЗ №6 по Теории Вероятностей }
+\date{\today}
+
+\begin{document} % конец преамбулы, начало документа
+
+\maketitle
+
+\textbf {№ 104}
+
+Пусть в вероятностном пространстве $(\Omega, \mc F, \bb P), \Omega = [0,1), \mc F \-- \sigma$-алгебра, содержащая полуинтервалы вида $\om_{in} = [(i-1)/n, i/n], i \in [1, n], n\in \bb N$  и $P$ - мера Лебега $(\forall i, n :P\{\omega \in \om_{in}\}= 1/n)$
+Исследовать на сходимость послед случайных величин $X_1^{(1)},X_2^{(1)},X_2^{(2)},X_3^{(1)},X_3^{(2)},X_3^{(3)},...$
+\begin{itemize}
+\item \textbf{б)}
+$X_n^{(i)}(\omega) = 
+\begin{cases}
+1/n,& \omega \in \om_{in}\\
+0,& \omega \in \om\backslash\om_{in}
+\end{cases}
+$
+
+	$X_n^{(i)}(\omega) = 
+	\begin{cases}
+	1/n,& p = 1/n\\
+	0,& p = 1 - 1/n
+	\end{cases}
+	$
+
+\begin{enumerate}
+	\item в среднеквадратичном:
+	$$\bb E|X_n|^2 = \fr{1}{n^2}\cdot\fr{1}{n} + 0\cdot \lt(1 - \fr{1}{n}\rt) = \fr{1}{n^3} \xrightarrow[n \to +\infty]{} 0 $$
+	
+	$\Rightarrow$
+	$\exists$ сходимость в среднеквадратичном $\Rightarrow \exists$ сходимость по вероятности $\Rightarrow \exists$ сходимость по распределению
+	\item почти наверное
+	
+	$$P\lt\{\omega\mid \fr{1}{n}\xrightarrow[n \to +\infty]{} 0 \rt\} = 1$$
+	$\Rightarrow$ есть сходимость п.н.
+\end{enumerate}
+
+\item \textbf{в)} $X_n^{(i)}(\omega) = 
+\begin{cases}
+n,& \omega \in \om_{in}\\
+1/n,& \omega \in \om\backslash\om_{in}
+\end{cases}
+$
+
+$X_n^{(i)}(\omega) = 
+\begin{cases}
+n,& p = 1/n\\
+1/n,& p =  1 - 1/n
+\end{cases}
+$
+
+Видно, что $X_n\xrightarrow[n \to +\infty]{} X = \begin{cases}
+1,& p = 0\\
+0,& p =  1
+\end{cases}$
+\begin{enumerate}
+\item по распределению:
+
+Приведем следующие теоремы:
+\begin{itemize}
+\item\textit{$F_n \rightarrow F \Leftrightarrow \vp_n(t)\rightarrow \vp(t)$ при каждом $t$, где $\vp(t) - $х.ф., соответствующая $F$(сходимость по распределению эквивалентна сходимости характеристических функций)}
+
+\item\textit{Пусть $\vp_n(t)$ - последовательность характеристических функций: $\vp_n(t)\xrightarrow[n \to +\infty]{}\vp(t) $ при каждом $t$. Тогда следующие условия эквивалентны:
+\begin{enumerate}
+	\item $\vp(t)$ является х.ф.;
+	\item $\vp(t)$ непрерывна в точке $t = 0$.
+\end{enumerate}
+}
+\end{itemize}
+
+$\vp_{X_n}(t) = \bb E e^{itX_n} = e^{itn}\cdot\fr{1}{n} + e^{i\fr{t}{n}}\cdot\lt(1 - \fr{1}{n}\rt) \xrightarrow[n \to +\infty]{} 1 = \vp_X(t)$
+
+$\vp_X(t)$ непрерывна в нуле $\Rightarrow$ $\vp_X(t)$ - х.ф.(по сформулированной выше теореме)
+
+$\vp_X(t)$ есть х.ф. случайной величины $X = 0$ с вероятностью $p = 1$
+
+$\Rightarrow$$\vp_X(t)$ есть х.ф. $F$
+
+$\exists $ сходимость по распределению
+
+Так как ранее было получено, что $X_n \rightarrow 0$(к константе), то в данном случае из сходимости по распределению будет следовать сходимость по вероятности.
+
+\item почти наверное:
+	$$P\lt\{\omega\mid X_n \rightarrow 0\rt\} = 1$$
+$\nexists$ сходимость п.н.
+
+\item в среднеквадратичном:
+$\bb E|X_n - X|^2 = \bb E|X_n|^2 = n^2 \fr{1}{n} + \fr{1}{n}\lt(1 - \fr{1}{n}\rt)\xrightarrow[n \to +\infty]{} \infty$
+
+$\nexists$ сходимость в среднеквадратичном.
+
+\end{enumerate}
+
+\item \textbf{г)}
+
+$X_n^{(i)}(\omega) = 
+\begin{cases}
+1/n,& \omega \in \om_{in}\\
+1 - 1/n,& \omega \in \om\backslash\om_{in}
+\end{cases}
+$
+
+$X_n^{(i)}(\omega) = 
+\begin{cases}
+1/n,& p = 1/n\\
+1 - 1/n,& p =  1 - 1/n
+\end{cases}
+$
+\begin{enumerate}
+\item по распределению:
+Аналогично пользуемся аппаратом х.ф.
+
+$\vp_{X_n}(t) = \bb E e^{itX_n} = e^{it\fr{1}{n}}\cdot\fr{1}{n} + e^{it\lt(1 - \fr{1}{n} \rt)}\cdot\lt(1 - \fr{1}{n}\rt) \xrightarrow[n \to +\infty]{} e^{it} = \vp_X(t)$
+
+Получили х.ф. случайной величины $X = 1$ с вероятностью $p = 1$
+
+Аналогично имеет место сходимость по распределению.
+
+Так как $X_n$ сходится к константе, то $\exists$ сходимость по вероятности
+
+\item в среднеквадратичном:
+$\bb E|X_n - 1|^2  = \lt(1 - \fr{1}{n}\rt)^2\fr{1}{n} + \lt(1 - \fr{1}{n}\rt)\lt(\fr{1}{n}\rt)^2 = \lt(1 - \fr{1}{n}\rt)\fr{1}{n}\rightarrow 0$
+
+$\exists$ сходимость в среднеквадратичном.
+
+\item почти наверное:
+$$P\lt\{\omega\mid X_n \rightarrow 1\rt\} = 1$$
+$\exists$ сходимость п.н.
+\end{enumerate}
+
+\end{itemize}
+
+\textbf {№ 121}
+
+Случайные величины $X_1, \dots, X_n$ независимы и имеют распределение Коши
+$$f(x) = \fr{d}{\pi(d^2 + x^2)}$$
+
+Докажите равенство распределений $X_1$ и $\fr{X_1  и X_1 + X_2+ \dots + X_n}{n}$. Противоречит ли это ЗБЧ или ЦПТ?
+
+\begin{proof}
+
+ЗБЧ и ЦПТ требуют существование конечного первого момента, но распределение Коши не имеет моментов $\Rightarrow$ не может быть использовано в данном случае.
+
+Докажем равенство распределений через равенство х.ф.
+
+Известно, что х.ф. для распределение Коши выражается так:
+$$\vp_{X_1} = e^{-d|t|}$$
+
+$$\vp_{\fr{\sum\limits_{j=1}^{n}X_j}{n}} = \bb Ee^{i\fr{\sum\limits_{j=1}^{n}X_j}{n}t}  = \prod\limits_{j=1}^{n} \vp_{X_j}\lt(\fr{t}{n}\rt) = \lt[\vp_{X_1}\lt(\fr{t}{n}\rt)\rt]^n = \lt[e^{-d|\fr{t}{n}|}\rt]^n = e^{-d|t|} = \vp_{X_1}(t)$$
+
+Второе и третье равенства верны так как случайные величины независимы и из одного распределения.
+
+Получили равенство х.ф.
+$\Rightarrow$ равенство распределений.
+\end{proof}
+\end{document} % конец документа
+

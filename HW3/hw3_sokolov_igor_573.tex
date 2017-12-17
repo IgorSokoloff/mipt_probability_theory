@@ -1,0 +1,262 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{comment}
+
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+\usepackage{geometry} % Простой способ задавать поля
+\geometry{top=25mm}
+\geometry{bottom=35mm}
+\geometry{left=20mm}
+\geometry{right=20mm}
+
+\usepackage{chngcntr}
+\usepackage{hyperref}
+
+\usepackage{setspace} % Интерлиньяж
+%\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+\usepackage{lastpage} % Узнать, сколько всего страниц в документе.
+\usepackage{soulutf8} % Модификаторы начертания
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\al}{\alpha}
+\newcommand{\p}{\partial}
+\newcommand{\D}{\Delta}
+\newcommand{\fr}{\frac}
+\newcommand{\dfr}{\dfrac}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\ol}{\overline}
+\newcommand{\bb}{\mathbb}
+\newcommand{\om}{\Omega}
+\newcommand{\Rw}{\Rightarrow}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\pagestyle{plain} % нумерация вкл.
+
+\rhead{\today}
+\lhead{Соколов Игорь, группа 573}
+
+%%% Заголовок
+\author{Соколов Игорь, группа 573}
+\title{ДЗ по Теории Вероятностей к семинару №6.}
+\date{\today}
+
+\begin{document} % конец преамбулы, начало документа
+
+\maketitle
+
+
+
+\section{}
+
+Показать, что если случайные величины $X_1$ и $X_2$ независимы и имеют нормальное распределение с математическими ожиданиями $\mu_1$ и $\mu_2$ и дисперсиями $\sigma_1^2$ и
+$\sigma_2^2$ соответственно, то $X_1$ + $X_2$ также имеет нормальное распределение с математическим ожиданием $\mu_1$ + $\mu_2$ и дисперсией $\sigma_1^2$ и
+$\sigma_2^2$ .
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+\begin{enumerate}
+
+\item
+Приведем доказательство линейности мат. ожидания в общем случае для произвольного распределения. $\Rightarrow$ для нормального это свойство выполнится.
+
+$$EX_1 + EX_2 = \int\limits_\mathbb{R} xf_x(x)dx + \int\limits_\mathbb{R} yf_y(y)dy$$
+
+где $f_x(x), f_y(y) -$ плотности распределения случайных величин $X_1, X_2$ соответственно
+
+Рассмотрим функцию совместного распределения $F_{xy}(x,y) = P(x<a, y<b)$
+
+Для непрерывного распределения верно: $f_x(x) = \int\limits_\mathbb{R} xf_{xy}(y, x)dy$ .
+
+\item[$\Longrightarrow$]  
+\begin{multline*}
+EX_1+EX_2 = \int\limits_\mathbb{R} xf_x(x)dx + \int\limits_\mathbb{R} yf_y(y)dy = \int\limits_\mathbb{R} x \left[\int\limits_\mathbb{R} xf_{xy}(y, x)dy \right]dx \ +\\
++ \int\limits_\mathbb{R} y \left[\int\limits_\mathbb{R} xf_{xy}(x, y)dx \right]dy =  \int\limits_\mathbb{R}\int\limits_\mathbb{R} (x+y) f_{xy}(x, y)dxdy = E(X_1+X_2) 
+\end{multline*}
+
+$\Longrightarrow E(X_1+X_2) = EX_1 + EX_2 = \mu_1 +\mu_2$\\
+
+\item[2)] Проведем абсолютно аналогичные рассуждения для дисперсии
+
+\[ DX = EX^2 - (EX)^2 \]
+
+\begin{multline*}
+DX_1+DX_2 = \int\limits_\mathbb{R} x^2f_x(x)dx -\left(\int\limits_\mathbb{R} xf_x(x)dx\right)^2 + \int\limits_\mathbb{R} y^2f_y(y)dy -\left(\int\limits_\mathbb{R} yf_y(y)dy\right)^2 =\\
+= \int\limits_\mathbb{R} x^2 \left[\int\limits_\mathbb{R} f_{xy}(y, x)dy \right]dx + \int\limits_\mathbb{R} y^2 \left[\int\limits_\mathbb{R} f_{xy}(x, y)dx \right]dy  - \int\limits_\mathbb{R} x \left[\int\limits_\mathbb{R} xf_{xy}(y, x)dy \right]dx
+\end{multline*}
+
+\end{enumerate}
+
+
+\section{}
+
+Показать, что если $\bb E|\xi|<\infty$, то $\forall a>0 \rightarrow P\lt(|\xi|\ge a \rt) \le \fr{\bb E|\xi|}{a}$
+
+\begin{proof}
+\begin{comment}
+
+Пусть $A$ - некоторое событие и $\bb P(A) = p$
+
+Введем индикаторную случайную величину:
+$$\chi(\omega) = 
+\begin{cases}
+1& \omega \in A\\
+0& \omega \notin A\\
+\end{cases}$$
+
+Случайная величина $\chi$ имеет распределение Бернулли с параметром $p$:
+$$\bb P(\chi = 1) = \bb P(A) = p$$
+и ее математическое ожидание равно вероятности успеха $p = \bb P(A)$.
+
+Очевидно, что для индикаторов событий $A$ и $\ol A$ справедливо:
+$$\chi$$
+\end{comment}
+$$\bb E |\xi| = \int\limits_{0}^{+\infty}xdF(x)\ge \int\limits_{a}^{+\infty}xdF(x) \ge a\int\limits_{a}^{+\infty}dF(x) = a\bb P(|\xi|\ge a)$$
+
+$$\Rightarrow \fr{\bb E |\xi|}{a} \ge \bb P(|\xi|\ge a)$$
+\end{proof}
+
+%3
+
+\section{}
+
+Вычислить k-ый момент для стандартного($\mu = 0, \sigma^2=1$) нормального распределения.
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+$$
+E\xi = \int \limits _ {-\infty}^{\infty} \dfrac{x^k}{\sqrt{2\pi}} \exp\left( \dfrac{-x^2}{2} \right)dx = \dfrac{1}{\sqrt{2\pi}} \int \limits _ {-\infty}^{\infty} -x^{k-1} \cdot d \left[ \exp \left( \dfrac{-x^2}{2} \right) \right] \overrightarrow{\small{\text{(по частям)}}}=$$ $$= \dfrac{1}{\sqrt{2\pi}}  (-x^{k-1}) \cdot \exp \left( \dfrac{-x^2}{2} \right) \Bigg|^{\infty} _{-\infty} -\quad \dfrac{1}{\sqrt{2\pi}}\int \limits _ {-\infty}^{\infty} (k-1)(-x^{k-2}) \cdot  \exp \left( \dfrac{-x^2}{2} \right) dx = 
+$$
+\begin{multline}\label{eq_1}
+\\  = \dfrac{1}{\sqrt{2\pi}}  (-x^{k-1}) \cdot \exp \left( \dfrac{-x^2}{2} \right) \Bigg|^{\infty} _{-\infty} - \quad \dfrac{1}{\sqrt{2\pi}} \int \limits ^{\infty}_{-\infty} (k-1) (x^{k-3}) \cdot d \left[\exp \left( \dfrac{-x^2}{2} \right)\right]  \overrightarrow{\small{\text{(по частям)}}} \\ \cdots \text{и так далее}
+\end{multline}
+
+В зависимости от числа $k$, будем получать разные ответы:
+\begin{enumerate}
+	\item[1)] $k$-нечетное:\\
+	Тогда \eqref{eq_1} =0, так как все члены четные.
+	\item[2)] $k$ -четное:\\
+	Тогда все члены без интегралла уйдут(они равны 0).
+	
+	Получаем:
+	 $$\dfrac{-1}{\sqrt{2\pi}} \cdot \int \limits _ {-\infty}^{\infty} (k-1)(k-3) \cdots  d \left[ \exp \left( \dfrac{-x^2}{2} \right) \right]  = {\sigma^p (k-1)!!}$$
+\end{enumerate}
+
+%4
+\section{}
+
+Пусть $X_n$ - количество чисел, не изменивших свои позиции при случайной перестановке элементов множества ${1,\dots , n}$. Найдите дисперсию $X_n$.
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+\vspace{\baselineskip}
+
+Пусть
+
+$\Omega - $  множество всех равновероятных перестановок.
+
+$\xi_i(\omega) = \begin{cases}
+1 &\text{$i$-ый элемент остался на месте}\\
+0 &\text{$i$-ый элемент поменял свою позицию}
+\end{cases}$
+$$\Rightarrow $$
+
+$\Rw \Omega$ состоит из всевозможных последовательностей длины $n$ из нулей и единиц.
+
+Число перестановок, в которых $i$-ый элемент остался на месте - $(n-1)!$.
+
+$$\Rightarrow \bb P(xi_i = 1) = \fr{(n-1)!}{n!} = \fr{1}{n}$$
+
+Видно что введенная нами случайная величина имеет Биномиальное распределение.
+
+Тогда имеем $$\bb E\xi = np = n\cdot\fr{1}{n}$$ где $p$ - вероятность успеха.
+
+$$\bb D\xi = npq = np(1 - p) = \fr{n - 1}{n}$$
+
+\textbf{Ответ:} $\bb D\xi = \dfr{n - 1}{n}$
+
+\section{}
+
+Какова вероятность того, что в случайном графе на 4 вершинах с вероятностью
+проведения ребра $\fr{2}{3}$ нет треугольников?
+
+\textbf{Решение:}
+
+\vspace{\baselineskip}
+
+$n = 4$ по условию.
+
+$V = \{V_1,\dots,V_n\}$
+
+$E = \{e_1,\dots,e_{C^2_n}\}$
+
+$$\bb P\{\text{в графе $k$ ребер }\} = \bb P\{|E| = k\} = C_{C^2_n}^k p^k(1-p)^{{C^2_n} - k}$$
+
+$C_n^3 -$ число <<троек>> ребер в графе.
+
+$$\bb P\{\text{в графе $k$ треугольников }\} = C_{C^3_n}^k p^{3k}(1-p)^{{C^3_n} - 3k}$$
+
+$$\Rw \bb P\{\text{в графе $0$ треугольников }\} = (1 - p)^{C^3_4} = \lt(1 - \fr{2}{3}\rt)^4 = \fr{1}{3^4} = 0.012$$
+
+\textbf{Ответ:} 0.012
+
+\end{document} % конец документа
+

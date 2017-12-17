@@ -1,0 +1,269 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{comment}
+
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+\usepackage{geometry} % Простой способ задавать поля
+\geometry{top=25mm}
+\geometry{bottom=35mm}
+\geometry{left=15mm}
+\geometry{right=15mm}
+
+\usepackage{chngcntr}
+\usepackage{hyperref}
+
+\usepackage{setspace} % Интерлиньяж
+%\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+\usepackage{lastpage} % Узнать, сколько всего страниц в документе.
+\usepackage{soulutf8} % Модификаторы начертания
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\al}{\alpha}
+\newcommand{\p}{\partial}
+\newcommand{\D}{\Delta}
+\newcommand{\fr}{\frac}
+\newcommand{\dfr}{\dfrac}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\ol}{\overline}
+\newcommand{\bb}{\mathbb}
+\newcommand{\om}{\Omega}
+\newcommand{\Rw}{\Rightarrow}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\vp}{\varphi}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\pagestyle{plain} % нумерация вкл.
+
+\rhead{\today}
+\lhead{Соколов Игорь, группа 573}
+
+%%% Заголовок
+\author{Соколов Игорь, группа 573}
+\title{ДЗ по Теории Вероятностей к семинару №8.}
+\date{\today}
+
+\begin{document} % конец преамбулы, начало документа
+
+\maketitle
+
+
+
+\section{}
+
+Доказать следующие утверждения:
+
+\begin{enumerate}
+\item х.ф - равномерно непрерывная функция
+\begin{proof}
+Нам понадобится \textbf{теорема о мажорируемой последовательности}:
+	
+{\it Если $\xi_n\xrightarrow[p]{}\xi$ и $|\xi_n|<\eta, \bb E\eta <\infty$, то существует $\bb E \xi$ и $\bb E|\xi_n - \xi|\rightarrow 0$ }
+	
+\begin{multline}
+|\varphi(t + h) - \varphi(t)| = |\bb E(e^{i(t+h)\xi} - e^{it\xi})| = |\bb E[(e^{it\xi})(e^{ih\xi} - 1)]| = |\bb E(e^{it\xi})\bb E(e^{ih\xi} - 1)| \le |\bb E(e^{ih\xi} - 1)|\rightarrow 0 
+\end{multline}
+по теореме о мажорируемой последовательности так как 
+
+$|e^{ih\xi} - 1| \xrightarrow[p]{} 0$ при $h \rightarrow 0, |e^{ih\xi} - 1)|\le 2$
+\end{proof}		
+
+\item $\ol \varphi_{\xi}(t) = \varphi_{\xi}(-t) = \varphi_{-\xi}(t)$
+\begin{proof}
+$\ol \varphi_{\xi}(t) = \ol{\bb Ee^{it\xi}} = \bb E\ol{e^{it\xi}} = \bb Ee^{-it\xi} = \varphi_{\xi}(-t) = \varphi_{-\xi}(t)$
+\end{proof}
+\item 
+Если х.ф. интегрируема на всей действительной оси, то существует плотность
+соответствующей случайной величины и выполнено:
+$$f(x) = \fr{1}{2\pi} \int\limits_{-\infty}^{+\infty}e^{-itx}\varphi(t)dt$$
+\begin{proof}
+	\begin{enumerate}
+	\item
+	Сначало установим вспомогательное равенство:
+	\begin{equation}\label{ref_1}
+	\forall \varepsilon \rightarrow  p_{\ve}(t)\ = \fr{1}{2\pi}\int\limits_{-\infty}^{+\infty}e^{itu}\vp(u)e^{-\ve^2u^2/2}du \equiv \fr{1}{\sqrt{2\pi}\ve}\int\limits_{-\infty}^{+\infty}\exp\lt\{-\fr{(u - t)^2}{2\ve^2} \rt\}F(du)
+	\end{equation}
+	где $F$ - распределение $\xi$.
+	
+	Исходным является равенство
+	\begin{equation}\label{ref_2}
+	\fr{1}{\sqrt{2\pi}}\int\limits_{-\infty}^{+\infty}\exp\lt\{ix\fr{\xi - t}{\ve}  - \fr{x^2}{2}\rt\}dx = \exp\lt\{-\fr{(\xi - t)^2}{2\ve^2} \rt\}
+	\end{equation}
+	
+	В обеих частях стоит х.ф. стандартного нормального распределения в точке $(\xi - t)/\ve$. Сделав замену $x = \ve u$, левая часть этого равенства можно записать в виде 
+	
+	$$\fr{\ve}{\sqrt{2\pi}}\int\limits_{-\infty}^{+\infty}\exp\lt\{iu (\xi - t)  - \fr{\ve^2u^2}{2}\rt\}du$$
+	
+	Взяв, математическое ожидание от обеих частей \eqref{ref_2}, получаем
+	
+	$$\fr{\ve}{\sqrt{2\pi}}\int\limits_{-\infty}^{+\infty}e^{-itu}\vp(u)e^{-\ve^2u^2/2}du = \int\limits_{-\infty}^{+\infty}\exp\lt\{-\fr{(u - t)^2}{2\ve^2} \rt\}F(du)$$
+	
+	Что доказывает равенство \eqref{ref_1}.
+	
+	\item Для доказательства исходной теоремы рассмотрим сначала левую часть равенства \eqref{ref_1}. Так как $e^{-\ve^2u^2/2}\rightarrow 1$ при $\ve \rightarrow 0, |e^{-\ve^2u^2/2}|\le 1$ и $\vp(u)$ интегрируема, то 
+	\begin{equation}\label{ref_4}
+	p_{\ve}(t) = \fr{1}{2\pi}\int\limits_{-\infty}^{+\infty}e^{-itu}\vp(u)du = p_0(t)
+	\end{equation}
+	при $\ve \rightarrow 0$ равномерно по $t$, так как интеграл в левой части \eqref{ref_1} равномерен по $t$. 
+	
+	Отсюда также следует, что 
+	\begin{equation}\label{ref_5}
+	\int\limits_{a}^{b} p_{\ve}(t)dt \rightarrow \int\limits_{a}^{b} p_{0}(t)dt.
+	\end{equation}
+	
+	Рассмотрим левую часть равенства\eqref{ref_1}. Она представляет собой суммы $\xi + \ve \eta$, где $\xi$ и $\eta$ независимы и $\eta$ из стандартного нормального распределения. Поэтому
+	\begin{equation}\label{ref_6}
+	\int\limits_{a}^{b} p_{\ve}(t)dt = \bb P (a < \xi + \ve\eta\le b).
+	\end{equation}
+	
+	Так как $\xi + \ve\eta \xrightarrow[p]{} \xi$ при $\ve \rightarrow 0$ и $\forall a, b$ (фиксированных) предел $\int\limits_{a}^{b} p_{\ve}(t)dt$ существует по полученному следствию \eqref{ref_5}, то  \eqref{ref_6} может быть только $F\lt([a, b)\rt)$
+	
+	Из \eqref{ref_5} и \eqref{ref_6} получаем
+	\begin{equation}\label{ref_7}
+		\int\limits_{a}^{b} p_{0}(t)dt = F\lt([a, b)\rt)
+	\end{equation}
+	
+	Получаем, что распределение $F$ имеет плотность $p_0(t)$ определяемую соотношением \eqref{ref_4}.
+	
+	Ограниченность $p_0(t)$ следует из интегрируемости $\vp$:
+	\begin{equation}
+	p_0(t) \le \fr{1}{2\pi}\int\limits_{-\infty}^{+\infty}|\vp(t)|dt < \infty
+	\end{equation}
+	
+\end{enumerate}
+	
+\end{proof}	
+
+\end{enumerate}	
+
+
+%2
+
+\section{}
+
+Является ли $f(t)$ характеристической функцией
+\begin{enumerate}
+\item $f(t) = \exp(-t^4)$ 
+\begin{proof}
+Предположим, что $f(t)$ является характеристической.
+	
+Воспользуемся следующими теоремами из Боровкова (стр 152 -153):
+\begin{itemize}
+	\item \textit{Если существует конечный $k$-й момент($k \ge 1$), то существует непрерывная $k$-я производная $\vp^{(k)}(0)$ и $\vp^{(k)}(0) = i^k \bb E\xi^k$}
+	\item \textit{Если производная четного $\vp^{(2k)}$ существует, то $\bb E |\xi^{2k}| < \infty$ и $\vp^{(2k)} = (-1)^k\bb E \xi^{2k} $} 
+\end{itemize}
+	
+Таким образом $\bb E\xi = -4t^3\exp(-t^4)\Big|_{t = 0} = 0$
+
+И $\bb D\xi = \bb E(\xi - \bb E\xi)^2 = \bb E\xi^2 = 0$
+
+Такие мат ожидание и дисперсия соответствуют случайной величине 
+$\xi = 
+\begin{cases} 
+0,& p = 1\\
+1,& p = 0
+\end{cases}$ 
+
+Но для $\vp_{\xi}(t) = \bb Ee^{it\xi} = \bb E1 = 1 \neq f(t)$
+
+Получили противоречие.
+
+$\Rightarrow f(t)$ \textbf{не является характеристической}.
+\end{proof}	
+\item $f(t) = \dfr{1}{1+t}$
+\begin{proof}
+Это действительная функция, но она не является чётной. Свойство $\ol \varphi_{\xi}(t) = \varphi_{\xi}(-t) = \varphi_{-\xi}(t)$ не выполнено. 
+
+$\Rightarrow f(t)$ \textbf{не является характеристической}.
+\end{proof}
+\item $f(t) = \dfr{1}{1+it^2}$
+\begin{proof}
+$$f(t) = \dfr{1}{1+it^2} = \dfr{1-it^2}{1+t^4} = \dfr{1}{1+t^4} - i\dfr{t^2}{1+t^4}$$
+$$ \ol f(t) = \dfr{1}{1+t^4} + i\dfr{t^2}{1+t^4}$$
+
+Видно, что  $\ol f(t) \neq f(-t)$
+
+$\Rightarrow f(t)$ \textbf{не является характеристической}.
+\end{proof}
+
+\item $f(t) = 1+\cos t$
+\begin{proof}
+При $t = 0 \rightarrow f(0) = 1 + \cos(0) = 2 >1$, что противоречит свойству $\forall t\rightarrow |f(t)|\le 1$
+
+$\Rightarrow f(t)$ \textbf{не является характеристической}. 
+\end{proof}	
+
+\item $f(t) = \fr{1}{2}\cos^2t2^{\cos t}$
+
+\item $f(t) = 
+\begin{cases}
+1 - t& |t| \le 1\\
+0& \text{иначе}
+\end{cases}$
+\begin{proof}
+
+\begin{itemize}
+	\item Функция действительного переменного, не являющаяся четной;
+	\item Разрыв в точке $-t \Rightarrow$ не является равномерно непрерывной.
+\end{itemize}
+
+$\Rightarrow f(t)$ \textbf{не является характеристической}.
+
+\end{proof}
+
+\end{enumerate}
+
+\end{document} % конец документа
+

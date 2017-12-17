@@ -1,0 +1,369 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{comment}
+
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+\usepackage{geometry} % Простой способ задавать поля
+\geometry{top=25mm}
+\geometry{bottom=35mm}
+\geometry{left=20mm}
+\geometry{right=20mm}
+
+\usepackage{chngcntr}
+\usepackage{hyperref}
+
+\usepackage{setspace} % Интерлиньяж
+%\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+\usepackage{lastpage} % Узнать, сколько всего страниц в документе.
+\usepackage{soulutf8} % Модификаторы начертания
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\al}{\alpha}
+\newcommand{\ol}{\overline}
+\newcommand{\bb}{\mathbb}
+\newcommand{\bs}{\backslash}
+
+\pagestyle{fancy}
+\fancyhf{}
+\pagestyle{plain} % нумерация вкл.
+
+\rhead{\today}
+\lhead{Соколов Игорь, группа 573}
+
+%%% Заголовок
+\author{Соколов Игорь, группа 573}
+\title{ДЗ к семинару №3-4 по Теории Вероятностей.}
+\date{\today}
+
+\begin{document} % конец преамбулы, начало документа
+
+\maketitle
+
+
+
+\section{}
+
+Показать, что из независимости событий $A$ и $B$ следует независимость событий
+$\ol{A}$ и $B$, $A$ и $\ol{B}$, $\ol{A}$ и $\ol{B}$.
+
+\vspace{\baselineskip}
+
+\begin{proof}
+
+Обозначение: $A\cap B = AB$
+
+По условию : $\bb P(AB) = \bb P(A)\bb P(B)$
+
+1) Из свойств вероятности имеем: 
+$$ \bb P(A\cup B) = \bb P(A) +\bb P(B) - \bb P(AB) = \bb P(A) +\bb P(B) - \bb P(A) \bb P(B) $$
+$$A \cup B = A \cup (B \bs AB)$$
+$$\Rightarrow \bb P(A\cup B) = \bb P( A \cup (B \bs AB)) = \bb P(A) + \bb P(B \bs AB)-\bb P(AB \bs AB) $$
+$$\bb P(AB \bs AB) =\bb P(\varnothing) = 0 $$ 
+$$\Rightarrow \bb P(A\cup B) = \bb P(A) + \bb P(B \bs AB) = \bb P(A) +\bb P(B) - \bb P(AB) $$
+Доказали, что $$\bb P(B \bs AB) = \bb P(B) - \bb P(AB)$$
+
+\begin{multline}
+	\bb P(\ol A B) = \bb P((\Omega \bs A) B) = \bb P(\Omega B\bs AB) = \bb P(B\bs AB) =  \bb P(B) - \bb P(AB) = \bb P(B)(1 - \bb P(A)) = \bb P(\ol A)\bb P(B)
+\end{multline}
+
+2) Аналогично:
+\begin{multline}
+\bb P(A \ol B) = \bb P(A(\Omega \bs B)) = \bb P(\Omega A\bs AB) = \bb P(A\bs AB) =  \bb P(A) - \bb P(AB) = \bb P(A)(1 - \bb P(B)) = \bb P(A)\bb P(\ol B)
+\end{multline}
+
+3) 
+\begin{multline}
+\bb P(\ol A \ol B) = \bb P(\ol A(\Omega \bs B)) = \bb P(\Omega \ol A\bs \ol A B) = \bb P(\ol A\bs \ol A B) =  \bb P(\ol A) - \bb P(\ol A B) = \bb P(\ol A)(1 - \bb P(B)) = \bb P(\ol A)\bb P(\ol B)
+\end{multline}
+
+При доказательстве использовали $\bb P(\ol A B) = \bb P(\ol A)P( B)$
+
+\end{proof}
+\vspace{\baselineskip}
+
+
+\section{}
+
+Подбрасываются три игральные кости. События $A$, $B$ и $C$ означают выпадение одинакового числа очков (соответственно) на первой и второй, на второй и
+третьей, на первой и третьей костях. Являются ли эти события независимыми
+
+a)Попарно.
+
+b)В совокупности.
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+\vspace{\baselineskip}
+
+$\Omega = \lt\{(a_1,a_2,a_3), a_i \in [1,6], i \in [1,3]\rt\}$ - цепочки из трех элементов, где $i - $ номер кости.
+
+$|\Omega| = 6^3$  
+
+\textbf{a)}
+
+В событие $A$ у нас 6 способов задать $a_1$ = $a_2$ и 6 способов задать $a_3$
+
+(считаем, что на 3-й кости может быть одинаковое число очков с первой и второй. Условие это не запрещает)
+
+$$\bb P(A) = \dfrac{6^2}{6^3} = \dfrac{1}{6} $$
+
+Аналогично $$\bb P(B) = \dfrac{6^2}{6^3} = \dfrac{1}{6} $$
+
+Событие $AB$ означает выпадение одинакового числа на всех трех кубиках - 6 способов задать $a_1 = a_2 = a_3$
+
+$$\bb P(AB) = \dfrac{6}{6^3} = \dfrac{1}{6^2} $$
+
+$$\Rightarrow\bb P(AB) = \dfrac{1}{6^2} = \dfrac{1}{6}\cdot\dfrac{1}{6} =\bb P(A) \bb P(B)$$
+
+Аналогично можно показать, что 
+
+$$\bb P(AС) = \bb P(A) \bb P(C)$$
+$$\bb P(BС) = \bb P(B) \bb P(C)$$
+
+$\Rightarrow $ \textbf{события попарно независимы}
+
+\textbf{b)}
+
+Событие $ABC$ означает выпадение одинакового числа на всех трех кубиках - 6 способов задать $a_1 = a_2 = a_3$
+
+$$\bb P(ABC) = \dfrac{6}{6^3} = \dfrac{1}{6^2} \neq \dfrac{1}{6}\cdot\dfrac{1}{6}\cdot\dfrac{1}{6} = \bb P(A)\bb P(B) \bb P(C)$$
+
+$\Rightarrow $ \textbf{отсутствует независимость в совокупности}
+
+%3
+
+\section{}
+
+Известно, что в результате бросания десяти игральных костей выпала по крайней мере две «пятёрки». Какова вероятность того, что число выпавших «пятёрок» больше пяти?
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+\vspace{\baselineskip}
+
+$\Omega = \lt\{(a_1,\dots,a_10), a_i \in [1,6], i \in [1,10]\rt\}$ - последовательности чисел из 10 элементов, где $i - $ номер кости.
+
+$|\Omega| = 6^{10}$ 
+
+Введем события:
+
+$A = \{\text{выпало 2 пятерки}\}$
+
+$B = \{\text{выпало больше 5 пятерок}\}$
+
+$C_i = \{\text{выпало } i \text{ пятерок}\}$
+
+Надо найти:
+
+$$\bb P(B|A) = \dfrac{\bb P(AB)}{\bb P(A)} = \dfrac{\bb P(B)}{\bb P(A)} = \dfrac{1- \bb P(\ol B)}{\bb P(A)}$$
+
+где $\ol B = \{\text{выпало меньше или равно 5 пятерок}\}$.
+
+\vspace{\baselineskip}
+
+
+Рассмотрим знаменатель:
+
+$C_{10}^2$ - количество способов зафиксировать две пятерки в последовательности из 10 элементов.
+
+$5^8$ - количество способов задать все остальные элементы (имеем в виду, что "5" больше не встречается)
+
+Получаем: $\bb P(A) = \dfrac{C_{10}^2 \cdot5^8}{6^{10}}$
+
+\vspace{\baselineskip}
+
+Рассмотрим числитель:
+
+$\bb P( \ol B) = \bb P(C_0) + \dots +  \bb P(C_5)$
+
+Аналогичными рассуждениями получаем:
+
+$\bb P( \ol B) = \dfrac{C_{10}^0 5^{10}}{6^{10}} + \dfrac{C_{10}^1 5^{9}}{6^{10}}+ \dots + \dfrac{C_{10}^5 5^{5}}{6^{10}} = 0.9976$
+
+$$\bb P(B|A) = \dfrac{0.0024}{0.291} = 0.0083$$
+
+\vspace{\baselineskip}
+
+
+\textbf{Ответ:} $\bb P(B|A) = 0.0083$
+
+%4
+\section{}
+
+За тремя дверями находится две козы и автомобиль. Вы выбираете одну дверь,
+затем ведущий открывает другую дверь, за которой находится коза. После этого
+вы можете поменять свой выбор. Найти вероятность того, что вы выиграете, если
+измените выбор.
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+\textbf{1)}Будем считать, что ведущий знает, где находится автомобиль.
+
+\vspace{\baselineskip}
+
+Пронумеруем двери для удобства. На вероятностном пространстве это не отразится.
+
+Пусть вначале я выбрал дверь 1.
+
+Ведущий открыл 3.
+
+Рассмотрим следующие события:
+
+$Y_i = \{\text{я выбираю дверь }i\} $
+
+$H_i = \{\text{ведущий открывает дверь }i\}$
+
+$C_i = \{\text{автомобиль находится за дверью }i\} $
+
+$G_i = \{\text{коза находится за дверью }i\} $
+
+\vspace{\baselineskip}
+
+
+Из условия задачи понятно, что надо подсчитать вероятность $\bb P(C_2|Y_1H_3G_3)$.
+
+Найдем вначале $$\bb P(C_1|Y_1H_3G_3) = \dfrac{\bb P(C_1H_3G_3|Y_1)\bb P(Y_1)}{\bb P(H_3G_3|Y_1)\bb P(Y_1)} = \dfrac{\bb P(C_1H_3G_3|Y_1)}{\bb P(H_3G_3|Y_1)}$$
+
+Так как ведущий знает, где находится автомобиль, то $H_3 \subseteq G_3$
+
+(он открывает дверь 3 только если за ней коза))
+и $ G_1H_3Y_1 = G_1G_3Y_1$
+
+(то есть если я выбираю дверь 1, за которой находится коза, то он открывает дверь 3 всякий раз, когда за ней находится коза)
+
+Также имеем $\bb P(C_1|Y_1) = 1/3$ и $\bb P(H_3|Y_1C_1) = 1/2$ в силу симметрии.
+
+В этом случае $\bb P(C_1H_3G_3|Y_1) = \bb P(C_1H_3|Y_1) = \bb P(C_1 Y_1) \bb P(H_3|Y_1C_1) = \dfrac{1}{3}\cdot\dfrac{1}{2} = \dfrac{1}{6}$.
+
+С другой стороны $\bb P(H_3G_3|Y_1) = \bb P(H_3|Y_1) = \bb P((G_1 + C_1)H_3|Y_1) = \bb P(G_1H_3|Y_1) + \bb P(C_1H_3|Y_1)=\\=\dfrac{\bb P(G_1H_3Y_1)}{\bb P(Y_1)} + \dfrac{1}{6} = \dfrac{\bb P(G_1G_3Y_1)}{\bb P(Y_1)} + \dfrac{1}{6} = \bb P(C_2|Y_1)+\dfrac{1}{6} = \dfrac{1}{3}+\dfrac{1}{6} = \dfrac{1}{2}$
+
+Таким образом $\bb P(C_1|Y_1H_3G_3) = \dfrac{1/6}{1/2} = \dfrac{1}{3}$
+
+$\bb P(C_2|Y_1H_3G_3) = 1 - P(C_2|Y_1H_3G_3) = 1 - \dfrac{1}{3} = \dfrac{2}{3}$
+
+Получаем, что если я изменю решение, то вероятность возрастет.
+
+\vspace{\baselineskip}
+
+\textbf{2)} Предположим, ведущий не знает, где находится автомобиль.
+
+Тогда события $C_1, Y_1 $ и $H_3$ независимы и в силу симметрии получаем:
+
+$\bb P(C_1|Y_1H_3G_3) = \bb P(C_2|Y_1H_3G_3) = \dfrac{1}{2}$
+
+\textbf{Ответ:} \textbf{1)} 2/3; \textbf{2)} 1/2
+
+%5
+\section{}
+На заводе, изготавливающем болты, на долю машин $A$, $B$, $C$ приходятся соответственно 25, 35, 40\% изделий. В их продукции брак составляет соответственно
+5, 4, 2\%. Случайно выбранный болт оказался деффектным. Каковы вероятности
+того, что он был изготовлен соответственно на машине $A$, $B$, $C$?
+
+\vspace{\baselineskip}
+
+\textbf{Решение:}
+
+Рассмотрим следующие события:
+
+$A = \{\text{болт изготовлен на машине А}\}$
+
+$B =\{\text{болт изготовлен на машине B}\}$
+
+$C = \{\text{болт изготовлен на машине C}\}$
+
+$D = \{\text{встретился бракованный болт}\}$
+
+Из условий имеем
+
+$\bb P(D|A) = 0.05$
+
+$\bb P(D|B) = 0.04$
+
+$\bb P(D|C) = 0.02$
+
+$\bb P(A) = 0.25$
+
+$\bb P(B) = 0.35$
+
+$\bb P(C) = 0.40$
+
+
+
+Напишем формулу полной вероятности:
+\[ P(A|D) = \dfrac{P(D|A)\cdot P(A)}{P(D|A)\cdot P(A) + P(D|B)\cdot P(B) + P(D|C)\cdot P(C)}\]
+Знаменатель равен : $0.05\cdot 0.25 + 0.04\cdot 0.35 + 0.02 \cdot  0.40 = \dfrac{69}{2000}$
+
+
+1. Для машины А:
+	\[P(A|D) = \dfrac{0.05\cdot 0.25}{69/2000}  = 0.36\]
+
+2. Для машины B:
+	\[P(A|D) = \dfrac{0.04\cdot 0.35}{69/2000}  = 0.41\]
+
+3. Для машины C:
+	\[P(A|D) = \dfrac{0.02 \cdot  0.40}{69/2000}  = 0.23\]
+
+
+\vspace{\baselineskip}
+
+
+
+
+\end{document} % конец документа
+
