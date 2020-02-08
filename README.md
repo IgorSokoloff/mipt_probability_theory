@@ -1,2 +1,2 @@
 # mipt_dcam_probability_theory
-HW
+Here I store homework on the Probability theory course held diring the 5th term of at MIPT
