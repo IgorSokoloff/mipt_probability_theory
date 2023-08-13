@@ -1,3 +1,3 @@
-# probability_theory
+# mipt_probability_theory
 
-Here I store Probability theory course homeworks which I did during the 5th term of at MIPT.
+Here I store Probability theory course homeworks which I did during the 3rd year (5th semester) at MIPT in 2017.
